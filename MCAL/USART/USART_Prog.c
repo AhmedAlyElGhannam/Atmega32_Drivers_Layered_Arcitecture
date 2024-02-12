@@ -28,11 +28,11 @@ void USART_voidInit(void)
 	SET_BIT(local_u8UCSRC, USART_UCSRC_UCSZ0);
 	
 	/**choose mode: asynchronous or synchronous*/
-		/**for async: 2 mcus agree on a baud rate*/
-		/**for sync: 2 mcus run on the same CLOCK*/
-	SET_BIT(local_u8UCSRC, USART_UCSRC_UMSEL);
+	/**for async: 2 mcus agree on a baud rate => 0*/
+	/**for sync: 2 mcus run on the same CLOCK => 1*/ 
+	CLR_BIT(local_u8UCSRC, USART_UCSRC_UMSEL);
 	
-	/**diable parity*/
+	/**disable parity*/
 	CLR_BIT(local_u8UCSRC, USART_UCSRC_UPM1);
 	CLR_BIT(local_u8UCSRC, USART_UCSRC_UPM0);
 	
@@ -48,6 +48,7 @@ void USART_voidInit(void)
 	/**enable transmitter && receiver*/
 	SET_BIT(UCSRB, USART_UCSRB_RXEN);
 	SET_BIT(UCSRB, USART_UCSRB_TXEN);
+	
 }
 
 void USART_voidSendData(u8 copy_u8Data)
